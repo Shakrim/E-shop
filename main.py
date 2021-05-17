@@ -80,6 +80,22 @@ class Customer:
         else:
             raise TypeError(f"Can remove only instances of class 'Item'")
 
+class PremiumCustomer(Customer):
+
+    plans_discounts = {"silver": 0.10, "gold": 0.15, "platinum": 0.25}
+
+    def __init__(self, name, birthdate, plan):
+        super().__init__(name, birthdate)
+        if plan not in PremiumCustomer.plans_discounts:
+            raise AttributeError(f"Possible plans: {list(PremiumCustomer.plans_discounts.keys())}")
+        self.plan = plan
+
+    def apply_discount(self):
+        self.basket.discount = PremiumCustomer.plans_discounts[self.plan]
+        return f"Total price after discount: {self.basket.total_price}"
+
+
+
 
 
 
